@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -26,157 +26,59 @@
     Trimakasih,
     -->
 
-
-    <title>Simulasi Intensitas Hujan Bulanan</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <title>Simulasi Curah Hujan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.2/tailwind.min.css">
     <style>
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        @media(max-width:1520px) {
+            .left-svg {
+                display: none;
+            }
         }
 
-        /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
+        #nav-mobile-btn.close span:first-child {
+            transform: rotate(45deg);
+            top: 4px;
+            position: relative;
+            background: #a0aec0;
         }
 
-        #lhb-input-last, #chb-input-last {
-            caret-color: white;
+        #nav-mobile-btn.close span:nth-child(2) {
+            transform: rotate(-45deg);
+            margin-top: 0px;
+            background: #a0aec0;
         }
-
     </style>
 </head>
 
-<body class="p-8">
-    <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan</h1> <br>
-    <h1 class="text-center text-xl font-bold">(Kelompok - 7)</h1>
+<body class="overflow-x-hidden antialiased">
+    <!-- BEGIN HERO SECTION -->
+    <h1 class="container mx-auto text-center text-2xl font-bold tracking-wide mt-10 text-3xl	">PROGRAM SIMULASI CURAH
+        HUJAN
+    </h1>
 
-    <div class="mt-8 mb-4 flex items-start">
-        <div class="">
-            <label for="jumlahInput" class="text-lg font-bold mr-2 block">Banyak Input</label>
-            <div class="flex items-center">
-                <input id="jumlahInput" type="number" class="px-2 border border-black rounded-md text-sm mr-2 w-32" value="100">
-                <button id="buatInput" class="btn btn-primary btn-xs">Buat Input</button>
-            </div>
-        </div>
+    <div class="relative items-center justify-center w-full overflow-x-hidden lg:pt-40 lg:pb-40 xl:pt-40 xl:pb-64">
 
-        <div class="ml-10">
-            <h3 for="jumlahInput" class="text-lg font-bold mr-2 block">Metode Pembangkit Angka Acak</h3>
-            <div class="flex items-center">
-                <div class="flex items-center">
-                    <input type="radio" id="metodeLcg" name="metodeAngkaAcak" value="LCG" class="mr-1" checked />
-                    <label for="metodeLcg">LCG</label>
-                </div>
-                <div class="flex items-center ml-5">
-                    <input type="radio" id="metodeMultiplicative" name="metodeAngkaAcak" value="Multiplicative" class="mr-1" />
-                    <label for="metodeMultiplicative">Multiplicative</label>
-                </div>
+        <div
+            class="container flex flex-col items-center justify-between h-full max-w-6xl px-8 mx-auto -mt-40 lg:flex-row xl:px-0">
+            <div
+                class="z-30 flex flex-col items-center w-full max-w-xl pt-48 text-center lg:items-start lg:w-1/2 lg:pt-20 xl:pt-40 lg:text-left">
+                <h1 class="relative mb-4 text-3xl font-black leading-tight text-gray-900 sm:text-4xl xl:mb-8">INTENSITAS
+                    CURAH HUJAN BULANAN</h1>
+                <p class="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">Aplikasi ini menggunakan
+                    data historis cuaca serta algoritma RNG untuk menghasilkan visualisasi tentang intensitas hujan
+                    dalam bentuk grafik intensitas hujan, table simulasi yang akurat menggunakan algoritma RNG</p>
+                <a href="simulasi/simulasi.html"
+                    class="relative self-start inline-block w-auto px-8 py-4 mx-auto mt-0 text-base font-bold text-white bg-indigo-600 border-t border-gray-200 rounded-md shadow-xl sm:mt-1 fold-bold lg:mx-0">Start
+                    Simulasi</a>
             </div>
-        </div>
-
-    </div>
-
-    <div class="grid grid-cols-2 mt-1 gap-4">
-        <div class="flex flex-col gap-2">
-            <div class="flex w-full justify-between item-center">
-                <div>
-                    <h1 class="text-xl font-bold">Curah Hujan Bulanan <span class="text-xs">(mm)</span></h1>
-                    <p class="text-xs">Tekan enter untuk menambahkan data</p>
+            <div class="relative z-50 flex flex-col items-end justify-center w-full h-full lg:w-1/2 ms:pl-10">
+                <div class="container relative left-0 w-full max-w-4xl lg:absolute xl:max-w-6xl lg:w-screen">
+                    <img src="asssets/iconHujan.png" class="">
                 </div>
-                <div class="flex flex-col justify-end">
-                    <button id="chb-clear" class="btn btn-primary btn-xs">Hapus Semua</button>
-                    <label class="label cursor-pointer flex gap-2 w-fit">
-                        <span class="label-text text-xs">Gunakan data default?</span>
-                        <input type="checkbox" class="toggle toggle-xs toggle-success" checked="checked"
-                            id="chb-toggle" />
-                    </label>
-                </div>
-            </div>
-            <div class="grid grid-cols-10 gap-1" id="dataCurahHujanBulanan">
-                <input type="text" class="input input-sm input-bordered text-center" id="chb-input-last"
-                    placeholder="+" />
-            </div>
-        </div>
-        <div class="flex flex-col gap-2">
-            <div class="flex w-full justify-between item-center">
-                <div>
-                    <h1 class="text-xl font-bold">Lama Hujan Bulanan <span class="text-xs">(hari)</span></h1>
-                    <p class="text-xs">Tekan enter untuk menambahkan data</p>
-                </div>
-                <div class="flex flex-col justify-end">
-                    <button id="lhb-clear" class="btn btn-primary btn-xs">Hapus Semua</button>
-                    <label class="label cursor-pointer flex gap-2 w-fit">
-                        <span class="label-text text-xs">Gunakan data default?</span>
-                        <input type="checkbox" class="toggle toggle-xs toggle-success" checked="checked"
-                            id="lhb-toggle" />
-                    </label>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-10 gap-1" id="dataLamaHujanBulanan">
-                <input type="text" class="input input-sm input-bordered text-center" id="lhb-input-last"
-                    placeholder="+" />
-            </div>
-        </div>
-        <div class="col-span-2">
-            <div class="w-full flex item-center justify-between">
-                <div>
-                    <h1 class="text-xl font-bold">Hasil Simulasi</h1>
-                    <p class="text-xs border-red-500 border-l-2 pl-2">Jika jumlah data tidak sama, maka data yang lebih
-                        sedikit yang akan dijadikan
-                        acuan</p>
-                </div>
-                <div class="flex flex-col items-end">
-                    <div class="mb-2">
-                        <label for="jumlahSimulasi" class="text-lg mr-2">Banyak Simulasi</label>
-                        <input id="jumlahSimulasi" type="number" class="px-2 border border-black rounded-md text-sm mr-2 w-16" value="100">
-                    </div>
-                    <button class="btn btn-primary btn-sm " id="buatSimulasi">Buat Simulasi</button>
-                </div>
-            </div>
-            <div class="relative h-64 w-full flex items-center justify-center">
-                <canvas id="chart">
-            </div>
-            <div id="hasil-simulasi" class="mt-4">
-                <table id="resultsTable" class="table table-zebra table-xs text-center">
-                    <thead class="bg-base-200 rounded-top-xl overflow-hidden">
-                        <tr>
-                            <th rowspan="2" class="border-2 p-0 w-fit">Bulan</th>
-                            <th colspan="2" class="border-2 p-0">Angka Acak</th>
-                            <th colspan="4" class="border-2 p-0">Simulasi</th>
-                        </tr>
-                        <tr>
-                            <th class="text-xs border-2  p-0 bg-base-300">Curah Hujan</th>
-                            <th class="text-xs border-2  p-0 bg-base-300">Lama Hujan</th>
-                            <th class="text-xs border-2  p-0">Curah Hujan</th>
-                            <th class="text-xs border-2  p-0">Lama Hujan</th>
-                            <th class="text-xs border-2  p-0">Intensitas Curah Hujan</th>
-                            <th class="text-xs border-2  p-0">Status Cuaca</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resultsBody">
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-
-    <div class="mt-5">
-        <h2 id="label-grafik-cuaca" class="text-2xl"></h2>
-        <canvas id="statusCuacaChart"></canvas>
-    </div>
-
-    <div class="mt-5">
-        <h2 id="label-grafik-simulasi" class="text-2xl"></h2>
-        <canvas id="simulasiChart"></canvas>
-    </div>
-
+    <!-- HERO SECTION END -->
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script/script.js"></script>
 
 </html>
