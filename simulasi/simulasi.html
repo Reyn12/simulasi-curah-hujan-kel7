@@ -32,6 +32,10 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -52,23 +56,37 @@
 </head>
 
 <body class="p-8">
+    <a href="../index.html">
+        <div class="absolute top-10 flex items-center gap-2" id="backButton">
+            <img class="w-8 h-8" src="../asssets/back.svg" alt="info">
+            <h3 class="">Kembali</h3>
+        </div>
+    </a>
+    <button id="helpButton" class="absolute end-10 top-10 flex items-center gap-2">
+        <img class="w-8 h-8" src="../asssets/info.svg" alt="info">
+        <h3>Bantuan</h3>
+    </button>
     <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan</h1> <br>
-    <h1 class="text-center text-xl font-bold">(Kelompok - 7)</h1>
+    <h1 class="text-center text-xl font-bold mb-5">(Kelompok - 7)</h1>
+    <hr style="border: 2px solid black;">
 
     <div class="mb-5 mt-5">
-        <label for="jumlahInput" class="text-lg font-bold mr-2 block">Banyak Input</label>
-        <div class="flex items-center">
-            <input id="jumlahInput" type="number" class="px-2 border border-black rounded-md text-sm mr-2 w-32"
-                value="100">
-            <button id="buatInput" class="btn btn-primary btn-xs">Buat Input</button>
-        </div>
+        <span class="hintBanyakInput block mx-auto text-center">
+            <label for="jumlahInput" class="text-lg font-bold mr-2 block mb-3 ">Banyak Input</label>
+            <div class="flex justify-center items-center">
+                <input id="jumlahInput" type="number"
+                    class="input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                    value="100">
+                <button id="buatInput" class="btn btn-primary btn-xs ">Buat Input</button>
+            </div>
+        </span>
     </div>
 
 
     </div>
 
     <div class="grid grid-cols-2 mt-1 gap-4">
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 hintCurahHujanBulanan">
             <div class="flex w-full justify-between item-center">
                 <div>
                     <h1 class="text-xl font-bold">Curah Hujan Bulanan <span class="text-xs">(mm)</span></h1>
@@ -88,7 +106,7 @@
                     placeholder="+" />
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 hintLamaHujanBulanan">
             <div class="flex w-full justify-between item-center">
                 <div>
                     <h1 class="text-xl font-bold">Lama Hujan Bulanan <span class="text-xs">(hari)</span></h1>
@@ -110,15 +128,16 @@
             </div>
         </div>
 
-        <div class="w-fit col-span-2">
+        <div class="w-fit col-span-2 hintInputVarRNG">
             <h3 class="text-xl font-bold mr-2 mt-5 mb-1">Input Pembangkit Angka Acak</h3>
             <div class=" border border-black p-2 rounded-md mb-5">
-    
+
                 <div class="">
                     <h4 class="font-bold">Metode : </h4>
                     <div class="flex items-center">
                         <div class="flex items-center">
-                            <input type="radio" id="metodeLcg" name="metodeAngkaAcak" value="LCG" class="mr-1" checked />
+                            <input type="radio" id="metodeLcg" name="metodeAngkaAcak" value="LCG" class="mr-1"
+                                checked />
                             <label for="metodeLcg">LCG</label>
                         </div>
                         <div class="flex items-center ml-5">
@@ -128,50 +147,68 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="mt-1">
-                    <h4 class="font-bold">Variabel awal RNG untuk simulasi curah hujan: </h4>
+                    <h4 class="font-bold">Variabel awal RNG untuk simulasi <span class="font-extrabold italic">Curah
+                            Hujan:</span> </h4>
                     <div class="flex items-center">
                         <div class="">
                             <label for="z0ch">Z0 : </label>
-                            <input id="z0ch" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="10122034" />
+                            <input id="z0ch" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="10122034" />
                         </div>
                         <div class="ml-8">
                             <label for="ach">a : </label>
-                            <input id="ach" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="11" />
+                            <input id="ach" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="11" />
                         </div>
                         <div class="ml-8" id="cchContainer">
                             <label for="cch">c : </label>
-                            <input id="cch" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="29" />
+                            <input id="cch" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="29" />
                         </div>
                         <div class="ml-8">
                             <label for="mch">m : </label>
-                            <input id="mch" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="997" />
+                            <input id="mch" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="997" />
                         </div>
-                    
+
                     </div>
                 </div>
-    
+
                 <div class="mt-2">
-                    <h4 class="font-bold">Variabel awal RNG untuk simulasi lama hujan: </h4>
+                    <h4 class="font-bold">Variabel awal RNG untuk simulasi <span class="font-extrabold italic">Lama
+                            Hujan: </span> </h4>
                     <div class="flex items-center">
                         <div class="">
                             <label for="z0lh">Z0 : </label>
-                            <input id="z0lh" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="10122002" />
+                            <input id="z0lh" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="10122002" />
                         </div>
                         <div class="ml-8">
                             <label for="alh">a : </label>
-                            <input id="alh" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="19" />
+                            <input id="alh" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="19" />
                         </div>
                         <div class="ml-8" id="clhContainer">
                             <label for="clh">c : </label>
-                            <input id="clh" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="31" />
+                            <input id="clh" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="31" />
                         </div>
                         <div class="ml-8">
                             <label for="mlh">m : </label>
-                            <input id="mlh" type="number" class="px-2 border border-black rounded-md w-20 text-sm" value="811" />
+                            <input id="mlh" type="number"
+                                class="px-2 border border-black rounded-md w-20 text-sm input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
+                                value="811" />
                         </div>
-                    
+
                     </div>
                 </div>
             </div>
@@ -186,18 +223,18 @@
                         acuan</p>
                 </div>
                 <div class="flex flex-col items-end">
-                    <div class="mb-2">
+                    <div class="mb-2 hintBanyakSimulasi">
                         <label for="jumlahSimulasi" class="text-lg mr-2">Banyak Simulasi</label>
                         <input id="jumlahSimulasi" type="number"
                             class="px-2 border border-black rounded-md text-sm mr-2 w-16" value="100">
                     </div>
-                    <button class="btn btn-primary btn-sm " id="buatSimulasi">Buat Simulasi</button>
+                    <button class="btn btn-primary btn-sm hintBuatSimulasi" id="buatSimulasi">Buat Simulasi</button>
                 </div>
             </div>
             <div class="relative h-64 w-full flex items-center justify-center">
                 <canvas id="chart">
             </div>
-            <div id="hasil-simulasi" class="mt-4">
+            <div id="hasil-simulasi" class="mt-4 hintHasilTabelSimulasi">
                 <table id="resultsTable" class="table table-zebra table-xs text-center">
                     <thead class="bg-base-200 rounded-top-xl overflow-hidden">
                         <tr>
@@ -234,5 +271,25 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../script/script.js"></script>
+<script>
+    const driver = window.driver.js.driver;
+
+    const driverObj = driver({
+        showProgress: true,
+        steps: [
+            { element: '#tour-example', popover: { title: 'WELCOME TO OUR PROGRAM || SIMULASI INTENSITAS CURAH HUJAN', description: 'Berikut ada TOUR SINGKAT mengenai cara menggunakan program SIMULASI CURAH HUJAN', side: "left", align: 'start' } },
+            { element: '.hintBanyakInput', popover: { title: 'Masukkan Banyaknya Data Yang Akan Di input', description: 'Contoh: 50 Data, 20 Data, Maksimal 100 Data', side: "bottom", align: 'start' } },
+            { element: '.hintCurahHujanBulanan', popover: { title: 'Masukkan Data CURAH HUJAN BULANAN sebanyak N Data', description: 'Note: Klik tombol Gunakan Data Default untuk mempersingkat waktu input data (Dari Soal)', side: "bottom", align: 'start' } },
+            { element: '.hintLamaHujanBulanan', popover: { title: 'Masukkan Data CURAH LAMA BULANAN sebanyak N Data', description: 'Klik tombol Gunakan Data Default untuk mempersingkat waktu input data (Dari Soal)', side: "left", align: 'start' } },
+            { element: '.hintInputVarRNG', popover: { title: 'Masukkan Variabel RNG Yang dibutuhkan', description: 'Bisa pilih LCG atau Multiplicative sesuai keinginan, dan Masukkan Value nya', side: "right", align: 'start' } },
+            { element: '.hintBanyakSimulasi', popover: { title: 'Masukkan Banyaknya Simulasi', description: 'Contoh: 50 Simulasi, maka program akan menampilkan sebanyak 50 kali simulasi', side: "right", align: 'start' } },
+            { element: '.hintBuatSimulasi', popover: { title: 'Button Buat Simulasi', description: 'Klik untuk menampilkan hasil data simulasi dalam bentk Chart dan Tabel', side: "right", align: 'start' } },
+            { element: '.hintHasilTabelSimulasi', popover: { title: 'Tabel Hasil Simulasi', description: 'Program akan menampilkan hasil tabel Simulasi', side: "right", align: 'start' } },
+            { popover: { title: 'Enjoy The Program...!!!', description: 'Build BY : Muhammad Renaldi Maulana - (10122002) || Dawla Izza Al-Din Noor - (10122034) || Muhamad Raihan Nurzamzam - (10122037)' } }
+        ]
+    });
+    driverObj.drive();
+
+</script>
 
 </html>
