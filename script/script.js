@@ -47,26 +47,28 @@ const jumlahInput = document.getElementById("jumlahInput")
 
 const btnBuatSimulasi = document.getElementById("buatSimulasi");
 
-function tambahkanData(data, parent) {
+function tambahkanData(data, parent, tambahkanSatu = true) {
   let input = document.createElement("input");
   input.type = "number";
   input.className = "input input-sm input-bordered text-center p-0";
   input.value = data;
   parent.insertBefore(input, parent.children[parent.children.length - 1]);
 
-  const curahHujanInputs = [
-    ...document.querySelectorAll("#dataCurahHujanBulanan input"),
-  ];
-  const lamaHujanInputs = [
-    ...document.querySelectorAll("#dataLamaHujanBulanan input"),
-  ];
-
-  curahHujanInputs.pop();
-  lamaHujanInputs.pop();
-
-  const minimumData = Math.min(curahHujanInputs.length, lamaHujanInputs.length);
-
-  jumlahInput.value = minimumData
+  if(tambahkanSatu){
+    const curahHujanInputs = [
+      ...document.querySelectorAll("#dataCurahHujanBulanan input"),
+    ];
+    const lamaHujanInputs = [
+      ...document.querySelectorAll("#dataLamaHujanBulanan input"),
+    ];
+  
+    curahHujanInputs.pop();
+    lamaHujanInputs.pop();
+  
+    const minimumData = Math.min(curahHujanInputs.length, lamaHujanInputs.length);
+  
+    jumlahInput.value = minimumData
+  }
 }
 
 chbLastInput.addEventListener("keypress", (e) => {
@@ -104,12 +106,12 @@ btnBuatInput.addEventListener("click", () => {
   }
   
   resetSimulasi()
-
+  
   for(let i = 0; i < parseInt(banyakInput.value); i++){
-    tambahkanData(chbLastInput.value, dataCurahHujanBulanan);
+    tambahkanData(chbLastInput.value, dataCurahHujanBulanan, false);
     chbLastInput.value = "";
 
-    tambahkanData(lhbLastInput.value, dataLamaHujanBulanan);
+    tambahkanData(lhbLastInput.value, dataLamaHujanBulanan, false);
     lhbLastInput.value = "";
   }
   
