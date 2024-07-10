@@ -45,6 +45,8 @@ const deleteAllLHB = document.getElementById("lhb-clear");
 const btnBuatInput = document.getElementById('buatInput')
 const jumlahInput = document.getElementById("jumlahInput")
 
+const metodeAngkaAcak = document.getElementsByName('metodeAngkaAcak')
+
 const btnBuatSimulasi = document.getElementById("buatSimulasi");
 
 function tambahkanData(data, parent, tambahkanSatu = true) {
@@ -186,6 +188,14 @@ function buatSimulasiIntensitasCurahHujan() {
   const resultsBody = document.getElementById("resultsBody");
   resultsBody.innerHTML = "";
 
+  let selectedMetodeAngkaAcak;
+  for(const metAA of metodeAngkaAcak){
+    if(metAA.checked){
+      selectedMetodeAngkaAcak = metAA.value
+      break;
+    }
+  }
+
   let zTerakhirCH = 10122034;
   let zTerakhirLH = 10122002;
 
@@ -193,10 +203,15 @@ function buatSimulasiIntensitasCurahHujan() {
   let dataHasilSimulasi = []
 
   for (let i = 0; i < banyakSimulasi; i++) {
-    zTerakhirCH = simulasiAngkaAcak(11, 29, 997, zTerakhirCH);
-    angkaAcakCH = (zTerakhirCH / 997) * 100;
+    if(selectedMetodeAngkaAcak == "LCG"){
+      zTerakhirCH = simulasiAngkaAcakLCG(11, 29, 997, zTerakhirCH);
+      zTerakhirLH = simulasiAngkaAcakLCG(19, 31, 811, zTerakhirLH);
+    }else if(selectedMetodeAngkaAcak == "Multiplicative"){
+      zTerakhirCH = simulasiAngkaAcakMultiplicative(11, 997, zTerakhirCH);
+      zTerakhirLH = simulasiAngkaAcakMultiplicative(19, 811, zTerakhirLH);
+    }
 
-    zTerakhirLH = simulasiAngkaAcak(19, 31, 811, zTerakhirLH);
+    angkaAcakCH = (zTerakhirCH / 997) * 100;
     angkaAcakLH = (zTerakhirLH / 811) * 100;
 
     let nilaiSimulasiCH;
@@ -403,10 +418,16 @@ function getIntervalAngkaAcak() {
   return { curahHujan: intervalAngkaAcakCH, lamaHujan: intervalAngkaAcakLH };
 }
 
-function simulasiAngkaAcak(a, c, m, zSebelum) {
+function simulasiAngkaAcakLCG(a, c, m, zSebelum) {
   let zi = (zSebelum * a + c) % m;
   return zi;
 }
+
+function simulasiAngkaAcakMultiplicative(a, m, zSebelum) {
+  let zi = (zSebelum * a) % m;
+  return zi;
+}
+
 
 function getStatusCuaca(intensitasCH) {
   if (intensitasCH < 6) {
