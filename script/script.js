@@ -25,8 +25,6 @@ let pieChart;
 let curahHujan = defaultCurahHujan;
 let lamaHujan = defaultLamaHujan;
 
-
-
 // ================================ Get Document Element ========================================
 
 const chbToggle = document.querySelector("#chb-toggle");
@@ -53,17 +51,17 @@ const jumlahInput = document.getElementById("jumlahInput");
 
 const metodeAngkaAcak = document.getElementsByName("metodeAngkaAcak");
 
-metodeAngkaAcak.forEach(maa => {
-  maa.addEventListener('change', () => {
-    if(maa.value == "Multiplicative"){
-      document.getElementById('cchContainer').classList.add('hidden')
-      document.getElementById('clhContainer').classList.add('hidden')
-    }else{
-      document.getElementById('cchContainer').classList.remove('hidden')
-      document.getElementById('clhContainer').classList.remove('hidden')
+metodeAngkaAcak.forEach((maa) => {
+  maa.addEventListener("change", () => {
+    if (maa.value == "Multiplicative") {
+      document.getElementById("cchContainer").classList.add("hidden");
+      document.getElementById("clhContainer").classList.add("hidden");
+    } else {
+      document.getElementById("cchContainer").classList.remove("hidden");
+      document.getElementById("clhContainer").classList.remove("hidden");
     }
-  })
-})
+  });
+});
 
 const btnBuatSimulasi = document.getElementById("buatSimulasi");
 
@@ -121,29 +119,29 @@ deleteAllLHB.addEventListener("click", () => {
 
 btnBuatInput.addEventListener("click", buatInput);
 
-function buatInput(ch = true, lh = true){
+function buatInput(ch = true, lh = true) {
   const banyakInput = document.getElementById("jumlahInput");
   if (banyakInput.value == "") {
-    banyakInput.value = 1
+    banyakInput.value = 1;
   } else if (banyakInput.value < 1) {
     return alert("Banyak input tidak valid");
   }
 
-  if(!lh){
+  if (!lh) {
     resetSimulasi(true, false);
-  }else if(!ch){
-    resetSimulasi(false, true)
-  }else if(lh && ch){
-    resetSimulasi()
+  } else if (!ch) {
+    resetSimulasi(false, true);
+  } else if (lh && ch) {
+    resetSimulasi();
   }
 
   for (let i = 0; i < parseInt(banyakInput.value); i++) {
-    if(ch){
+    if (ch) {
       tambahkanData(chbLastInput.value, dataCurahHujanBulanan, false);
       chbLastInput.value = "";
     }
 
-    if(lh){
+    if (lh) {
       tambahkanData(lhbLastInput.value, dataLamaHujanBulanan, false);
       lhbLastInput.value = "";
     }
@@ -163,18 +161,17 @@ function resetSimulasi(hapusCHB = true, hapusLHB = true) {
   const resultsBody = document.getElementById("resultsBody");
   resultsBody.innerHTML = "";
 
-  if(pieChart){
+  if (pieChart) {
     pieChart.destroy();
   }
 
-  if(cuacaChart){
+  if (cuacaChart) {
     cuacaChart.destroy();
   }
 
-  if(simulasiChart){
+  if (simulasiChart) {
     simulasiChart.destroy();
   }
-
 }
 
 btnBuatSimulasi.addEventListener("click", () => {
@@ -202,11 +199,11 @@ function gantiData(useDefaultData, parent, type) {
       lamaHujan = [...defaultLamaHujan];
     }
     updateData(isCurahHujan ? curahHujan : lamaHujan, parent);
-  }else{
-    if(isCurahHujan){
-      buatInput(true, false)
-    }else{
-      buatInput(false, true)
+  } else {
+    if (isCurahHujan) {
+      buatInput(true, false);
+    } else {
+      buatInput(false, true);
     }
   }
 }
@@ -218,9 +215,6 @@ chbToggle.addEventListener("change", () => {
 lhbToggle.addEventListener("change", () => {
   gantiData(lhbToggle.checked, dataLamaHujanBulanan, "lamaHujan");
 });
-
-
-
 
 // ============================= FUNGSIONALITAS SIMULASI ===========================================
 
@@ -245,18 +239,27 @@ function buatSimulasiIntensitasCurahHujan() {
   }
 
   // Variabel awal angka acak
-  const z0ch = parseInt(document.getElementById('z0ch').value)
-  const ach = parseInt(document.getElementById('ach').value)
-  const cch = parseInt(document.getElementById('cch').value)
-  const mch = parseInt(document.getElementById('mch').value)
+  const z0ch = parseInt(document.getElementById("z0ch").value);
+  const ach = parseInt(document.getElementById("ach").value);
+  const cch = parseInt(document.getElementById("cch").value);
+  const mch = parseInt(document.getElementById("mch").value);
 
-  const z0lh = parseInt(document.getElementById('z0lh').value)
-  const alh = parseInt(document.getElementById('alh').value)
-  const clh = parseInt(document.getElementById('clh').value)
-  const mlh = parseInt(document.getElementById('mlh').value)
+  const z0lh = parseInt(document.getElementById("z0lh").value);
+  const alh = parseInt(document.getElementById("alh").value);
+  const clh = parseInt(document.getElementById("clh").value);
+  const mlh = parseInt(document.getElementById("mlh").value);
 
-
-  validasiInputAwalAngkaAcak(z0ch, ach, cch, mch, z0lh, alh, clh, mlh, selectedMetodeAngkaAcak);
+  validasiInputAwalAngkaAcak(
+    z0ch,
+    ach,
+    cch,
+    mch,
+    z0lh,
+    alh,
+    clh,
+    mlh,
+    selectedMetodeAngkaAcak
+  );
 
   let zTerakhirCH = z0ch;
   let zTerakhirLH = z0lh;
@@ -275,7 +278,6 @@ function buatSimulasiIntensitasCurahHujan() {
 
     angkaAcakCH = (zTerakhirCH / mch) * 100;
     angkaAcakLH = (zTerakhirLH / mlh) * 100;
-
 
     let nilaiSimulasiCH;
     let lastIntervalCH;
@@ -347,9 +349,6 @@ function buatSimulasiIntensitasCurahHujan() {
   buatChartPerhitunganStatusCuaca(dataHasilSimulasi);
   buatChartHasilSimulasi(dataHasilSimulasi);
 }
-
-
-
 
 // ================================== PENGOLAHAN DATA ===========================================
 
@@ -490,9 +489,6 @@ function getIntervalAngkaAcak() {
   return { curahHujan: intervalAngkaAcakCH, lamaHujan: intervalAngkaAcakLH };
 }
 
-
-
-
 // =============================== SIMULASI ANGKA ACAK ===========================================
 
 function simulasiAngkaAcakLCG(a, c, m, zSebelum) {
@@ -505,37 +501,45 @@ function simulasiAngkaAcakMultiplicative(a, m, zSebelum) {
   return zi;
 }
 
-function validasiInputAwalAngkaAcak(z0ch, ach, cch, mch, z0lh, alh, clh, mlh, metode){
-  if(isNaN(z0ch) || isNaN(ach) || isNaN(mch)){
+function validasiInputAwalAngkaAcak(
+  z0ch,
+  ach,
+  cch,
+  mch,
+  z0lh,
+  alh,
+  clh,
+  mlh,
+  metode
+) {
+  if (isNaN(z0ch) || isNaN(ach) || isNaN(mch)) {
     return alert("Input variabel awal RNG simulasi curah hujan harus diisi");
   }
-  if(z0ch < 0 || ach < 0 || mch < 0){
+  if (z0ch < 0 || ach < 0 || mch < 0) {
     return alert("Input variabel awal RNG simulasi curah hujan tidak valid");
   }
-  if(isNaN(z0lh) || isNaN(alh) || isNaN(mlh)){
+  if (isNaN(z0lh) || isNaN(alh) || isNaN(mlh)) {
     return alert("Input variabel awal RNG simulasi lama hujan harus diisi");
   }
-  if(z0lh < 0 || alh < 0 || mlh < 0){
+  if (z0lh < 0 || alh < 0 || mlh < 0) {
     return alert("Input variabel awal RNG simulasi lama hujan tidak valid");
   }
 
-  if(metode == "LCG"){
-    if(isNaN(cch)){
+  if (metode == "LCG") {
+    if (isNaN(cch)) {
       return alert("Input variabel awal RNG simulasi curah hujan harus diisi");
     }
-    if(cch < 0){
+    if (cch < 0) {
       return alert("Input variabel awal RNG simulasi curah hujan tidak valid");
     }
-    if(isNaN(clh)){
+    if (isNaN(clh)) {
       return alert("Input variabel awal RNG simulasi lama hujan harus diisi");
     }
-    if(clh < 0){
+    if (clh < 0) {
       return alert("Input variabel awal RNG simulasi lama hujan tidak valid");
     }
   }
 }
-
-
 
 // ============================ PENGOLAHAN STATUS CUACA ===========================================
 
@@ -552,9 +556,6 @@ function getStatusCuaca(intensitasCH) {
     return "Hujan Sangat Lebat";
   }
 }
-
-
-
 
 // ============================================== CHART ===========================================
 
@@ -629,7 +630,7 @@ function generateChart(intensitas) {
 function buatChartHasilSimulasi(dataHasilSimulasi) {
   const simulasiChartLabel = document.getElementById("label-grafik-simulasi");
   simulasiChartLabel.innerHTML =
-    "Hasil Simulasi Intensitas Curah Hujan per Bulan";
+    "<b>Hasil Simulasi Intensitas Curah Hujan per Bulan</b>";
 
   const ctx = document.getElementById("simulasiChart");
   ctx.innerHTML = "";
@@ -686,7 +687,8 @@ function buatChartHasilSimulasi(dataHasilSimulasi) {
 
 function buatChartPerhitunganStatusCuaca(dataHasilSimulasi) {
   const cuacaChartLabel = document.getElementById("label-grafik-cuaca");
-  cuacaChartLabel.innerHTML = "Jumlah Kemunculan Setiap Intensitas Curah Hujan";
+  cuacaChartLabel.innerHTML =
+    "<b>Jumlah Kemunculan Setiap Intensitas Curah Hujan</b>";
 
   const ctxStatusCuaca = document
     .getElementById("statusCuacaChart")
@@ -763,9 +765,6 @@ function buatChartPerhitunganStatusCuaca(dataHasilSimulasi) {
     },
   });
 }
-
-
-
 
 // =========================================== ON LOAD ===========================================
 
