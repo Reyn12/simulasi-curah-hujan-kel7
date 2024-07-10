@@ -43,6 +43,11 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        #lhb-input-last, #chb-input-last {
+            caret-color: white;
+        }
+
     </style>
 </head>
 
@@ -50,7 +55,14 @@
     <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan</h1> <br>
     <h1 class="text-center text-xl font-bold">(Kelompok - 7)</h1>
 
-    <div class="grid grid-cols-2 mt-8 gap-4">
+    <div class="mt-8">
+        <label for="jumlahInput" class="text-lg font-bold mr-2 block">Banyak Input</label>
+        <div class="flex items-center">
+            <input id="jumlahInput" type="number" class="px-2 border border-black rounded-md text-sm mr-2 w-32" value="100">
+            <button id="buatInput" class="btn btn-primary btn-xs">Buat Input</button>
+        </div>
+    </div>
+    <div class="grid grid-cols-2 mt-1 gap-4">
         <div class="flex flex-col gap-2">
             <div class="flex w-full justify-between item-center">
                 <div>
@@ -100,7 +112,13 @@
                         sedikit yang akan dijadikan
                         acuan</p>
                 </div>
-                <button class="btn btn-primary btn-sm " id="buatSimulasi">Buat Simulasi</button>
+                <div class="flex flex-col items-end">
+                    <div class="mb-2">
+                        <label for="jumlahSimulasi" class="text-lg mr-2">Banyak Simulasi</label>
+                        <input id="jumlahSimulasi" type="number" class="px-2 border border-black rounded-md text-sm mr-2 w-16" value="100">
+                    </div>
+                    <button class="btn btn-primary btn-sm " id="buatSimulasi">Buat Simulasi</button>
+                </div>
             </div>
             <div class="relative h-64 w-full flex items-center justify-center">
                 <canvas id="chart">
@@ -128,6 +146,17 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-5">
+        <h2 id="label-grafik-cuaca" class="text-2xl"></h2>
+        <canvas id="statusCuacaChart"></canvas>
+    </div>
+
+    <div class="mt-5">
+        <h2 id="label-grafik-simulasi" class="text-2xl"></h2>
+        <canvas id="simulasiChart"></canvas>
+    </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script/script.js"></script>
