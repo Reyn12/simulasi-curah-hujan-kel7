@@ -34,6 +34,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+    <link rel="stylesheet" href="style.css">
 
 
     <style>
@@ -57,7 +58,7 @@
 
 <body class="p-8">
     <a href="../index.html">
-        <div class="absolute top-10 flex items-center gap-2 sticky id=" backButton">
+        <div class="absolute top-10 flex items-center gap-2 id=" backButton">
             <img class="w-8 h-8" src="../asssets/back.svg" alt="info">
             <h3 class="">Kembali</h3>
         </div>
@@ -66,7 +67,7 @@
         <img class="w-8 h-8" src="../asssets/info.svg" alt="info">
         <h3>Bantuan</h3>
     </button>
-    <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan di Kota Bandung</h1> <br>
+    <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan - Kota Bandung</h1> <br>
     <h1 class="text-center text-xl font-bold mb-5">(Kelompok - 7)</h1>
     <hr style="border: 2px solid black;">
 
@@ -226,9 +227,20 @@
                     <div class="mb-2 hintBanyakSimulasi">
                         <label for="jumlahSimulasi" class="text-lg mr-2">Banyak Simulasi</label>
                         <input id="jumlahSimulasi" type="number"
-                            class="px-2 border border-black rounded-md text-sm mr-2 w-16" value="100">
+                            class="input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-16"
+                            value="100">
                     </div>
-                    <button class="btn btn-primary btn-sm hintBuatSimulasi" id="buatSimulasi">Buat Simulasi</button>
+                    <button
+                        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2"
+                        id="buatSimulasi">Buat
+                        Simulasi</button>
+
+                    <!-- Loader  -->
+                    <div id="loaderOverlay" class="loader-overlay">
+                        <div class="loader"></div>
+                    </div>
+                    <!-- End Loader  -->
+
                 </div>
             </div>
             <div class="relative h-64 w-full flex items-center justify-center">
@@ -272,5 +284,21 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../script/script.js"></script>
+<script>
+    document.getElementById("buatSimulasi").addEventListener("click", function () {
+        // Show loader
+        var loaderOverlay = document.getElementById("loaderOverlay");
+        loaderOverlay.style.display = "flex";
+
+        // Simulate loading time (e.g., 2 seconds)
+        setTimeout(function () {
+            // Hide loader
+            loaderOverlay.style.display = "none";
+            // Add code here to display your chart or perform other actions
+        }, 1000); // 2000 milliseconds = 2 seconds
+    });
+</script>
+
+</script>
 
 </html>
