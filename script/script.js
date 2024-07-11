@@ -328,7 +328,7 @@ function buatSimulasiIntensitasCurahHujan() {
   const peringatanPengulanganCH = document.getElementById('peringatanPengulanganCH')
   peringatanPengulanganCH.classList.add('hidden')
 
-  const peringatanPengulanganLH = document.getElementById('peringatanPengulanganCH')
+  const peringatanPengulanganLH = document.getElementById('peringatanPengulanganLH')
   peringatanPengulanganLH.classList.add('hidden')
 
   const resultsBody = document.getElementById("resultsBody");
