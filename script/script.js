@@ -244,14 +244,16 @@ function buatInput(ch = true, lh = true) {
   }
 }
 
-function resetSimulasi(hapusCHB = true, hapusLHB = true) {
-  if (hapusCHB) {
-    hapusData(dataCurahHujanBulanan);
-    chbToggle.checked = false;
-  }
-  if (hapusLHB) {
-    hapusData(dataLamaHujanBulanan);
-    lhbToggle.checked = false;
+function resetSimulasi(hapusCHB = true, hapusLHB = true, resetInput = true) {
+  if(resetInput){
+    if (hapusCHB) {
+      hapusData(dataCurahHujanBulanan);
+      chbToggle.checked = false;
+    }
+    if (hapusLHB) {
+      hapusData(dataLamaHujanBulanan);
+      lhbToggle.checked = false;
+    }
   }
 
   const resultsBody = document.getElementById("resultsBody");
@@ -323,6 +325,12 @@ function buatSimulasiIntensitasCurahHujan() {
 
   let intervalAngkaAcak = getIntervalAngkaAcak();
 
+  const peringatanPengulanganCH = document.getElementById('peringatanPengulanganCH')
+  peringatanPengulanganCH.classList.add('hidden')
+
+  const peringatanPengulanganLH = document.getElementById('peringatanPengulanganCH')
+  peringatanPengulanganLH.classList.add('hidden')
+
   const resultsBody = document.getElementById("resultsBody");
   resultsBody.innerHTML = "";
 
@@ -370,6 +378,8 @@ function buatSimulasiIntensitasCurahHujan() {
 
   let semuaStatusCuaca = [];
   let dataHasilSimulasi = [];
+  let dataAngkaAcakCH = [];
+  let dataAngkaAcakLH = [];
 
   for (let i = 0; i < banyakSimulasi; i++) {
     if (selectedMetodeAngkaAcak == "LCG") {
@@ -421,6 +431,9 @@ function buatSimulasiIntensitasCurahHujan() {
       statusCuaca: statusCuaca,
     });
 
+    dataAngkaAcakCH.push(angkaAcakCH)
+    dataAngkaAcakLH.push(angkaAcakLH)
+
     let textCol = "text-black";
     if (statusCuaca == "Hujan Lebat" || statusCuaca == "Hujan Sangat Lebat") {
       textCol = "text-white";
@@ -441,9 +454,24 @@ function buatSimulasiIntensitasCurahHujan() {
     semuaStatusCuaca.push(statusCuaca);
     resultsBody.insertAdjacentHTML("beforeend", row);
   }
+
   generateChart(semuaStatusCuaca);
   buatChartPerhitunganStatusCuaca(dataHasilSimulasi);
   buatChartHasilSimulasi(dataHasilSimulasi);
+
+  // Cek bila ada pengulangan
+  const pengulanganCH = cekPengulanganAngkaAcak(dataAngkaAcakCH)
+  const pengulanganLH = cekPengulanganAngkaAcak(dataAngkaAcakLH)
+  if(pengulanganCH){
+    const peringatanPengulanganCH = document.getElementById('peringatanPengulanganCH')
+    peringatanPengulanganCH.classList.remove('hidden')
+    alert("PERINGATAN : terdapat pengulangan deret angka acak pada pembangkit angka acak untuk simulasi curah hujan. Mohon ganti nilai variabel awal pembangkit acak untuk simulasi tersebut.")
+  }
+  if(pengulanganLH){
+    const peringatanPengulanganLH = document.getElementById('peringatanPengulanganLH')
+    peringatanPengulanganLH.classList.remove('hidden')
+    alert("PERINGATAN : terdapat pengulangan deret angka acak pada pembangkit angka acak untuk simulasi lama hujan. Mohon ganti nilai variabel awal pembangkit acak untuk simulasi tersebut.")
+  }
 }
 
 // ================================== PENGOLAHAN DATA ===========================================
@@ -635,6 +663,29 @@ function validasiInputAwalAngkaAcak(
       return alert("Input variabel awal RNG simulasi lama hujan tidak valid");
     }
   }
+}
+
+function cekPengulanganAngkaAcak(arr){
+  const len = arr.length;
+
+  for (let panjangSeq = 1; panjangSeq <= Math.floor(len / 2); panjangSeq++) {
+    for (let awal = 0; awal <= len - 2 * panjangSeq; awal++) {
+      let isRepetition = true;
+
+      for (let i = 0; i < panjangSeq; i++) {
+        if (arr[awal + i] !== arr[awal + panjangSeq + i]) {
+          isRepetition = false;
+          break;
+        }
+      }
+
+      if (isRepetition) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 // ============================ PENGOLAHAN STATUS CUACA ===========================================

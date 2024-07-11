@@ -269,6 +269,11 @@
         </div>
 
         <div class="col-span-2">
+            <p class="text-red-500 mt-1 hidden" id="peringatanPengulanganCH">PERINGATAN : terdapat pengulangan deret angka acak pada pembangkit angka acak untuk simulasi curah hujan. Mohon ganti nilai variabel awal pembangkit acak untuk simulasi tersebut.</p>
+            <p class="text-red-500 mt-1 hidden" id="peringatanPengulanganLH">PERINGATAN : terdapat pengulangan deret angka acak pada pembangkit angka acak untuk simulasi lama hujan. Mohon ganti nilai variabel awal pembangkit acak untuk simulasi tersebut.</p>
+        </div>
+
+        <div class="col-span-2">
             <div class="w-full flex item-center justify-between">
                 <div>
                     <h1 class="text-xl font-bold">Hasil Simulasi</h1>
@@ -278,10 +283,12 @@
                 </div>
                 
             </div>
+
             <div class="relative h-64 w-full flex items-center justify-center">
                 <canvas id="chart">
             </div>
-            <div id="hasil-simulasi" class="mt-4 hintHasilTabelSimulasi">
+
+            <div id="hasil-simulasi" class="hintHasilTabelSimulasi mt-1">
                 <table id="resultsTable" class="table table-zebra table-xs text-center">
                     <thead class="bg-base-200 rounded-top-xl overflow-hidden">
                         <tr>
@@ -305,15 +312,13 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap -mx-2 mt-5">
-        <div class="w-full md:w-1/2 px-2">
-            <h2 id="label-grafik-cuaca" class="text-2xl"></h2>
-            <canvas id="statusCuacaChart"></canvas>
-        </div>
-        <div class="w-full md:w-1/2 px-2">
-            <h2 id="label-grafik-simulasi" class="text-2xl"></h2>
-            <canvas id="simulasiChart"></canvas>
-        </div>
+    <div class="w-full mx-auto lg:w-5/6 mt-10 px-2">
+        <h2 id="label-grafik-cuaca" class="text-2xl"></h2>
+        <canvas id="statusCuacaChart"></canvas>
+    </div>
+    <div class="w-full mx-auto lg:w-5/6 mt-10 px-2">
+        <h2 id="label-grafik-simulasi" class="text-2xl"></h2>
+        <canvas id="simulasiChart"></canvas>
     </div>
 
 </body>
