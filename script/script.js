@@ -357,6 +357,14 @@ function buatSimulasiIntensitasCurahHujan() {
     selectedMetodeAngkaAcak
   );
 
+  let colors = {
+    "Hujan Sangat Ringan": "#a7e6ff",
+    "Hujan Ringan": "#3abef9",
+    "Hujan Sedang": "#3572ef",
+    "Hujan Lebat": "#2f36c4",
+    "Hujan Sangat Lebat": "#001478",
+  };
+
   let zTerakhirCH = z0ch;
   let zTerakhirLH = z0lh;
 
@@ -405,14 +413,6 @@ function buatSimulasiIntensitasCurahHujan() {
 
     let intensitasCurahHujan = nilaiSimulasiCH / nilaiSimulasiLH;
     let statusCuaca = getStatusCuaca(intensitasCurahHujan);
-
-    let colors = {
-      "Hujan Sangat Ringan": "#a7e6ff",
-      "Hujan Ringan": "#3abef9",
-      "Hujan Sedang": "#3572ef",
-      "Hujan Lebat": "#2f36c4",
-      "Hujan Sangat Lebat": "#001478",
-    };
 
     dataHasilSimulasi.push({
       nilaiSimulasiCH: Math.round(nilaiSimulasiCH),
