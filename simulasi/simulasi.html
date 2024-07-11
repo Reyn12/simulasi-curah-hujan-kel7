@@ -67,13 +67,14 @@
         <img class="w-8 h-8" src="../asssets/info.svg" alt="info">
         <h3>Bantuan</h3>
     </button>
-    <h1 class="text-center text-xl font-bold">Simulasi Intensitas Curah Hujan Bulanan - Kota Bandung</h1> <br>
-    <h1 class="text-center text-xl font-bold mb-5">(Kelompok - 7)</h1>
+    <h1 class="text-center text-xl font-bold mt-12 md:mt-0">Simulasi Intensitas Curah Hujan Bulanan - Kota Bandung</h1>
+    <br>
+    <h1 class="text-center text-xl font-bold mb-5">|| Kelompok 7 - Soal No 12 ||</h1>
     <hr style="border: 2px solid black;">
 
     <div class="mb-5 mt-5">
         <span class="hintBanyakInput block mx-auto text-center">
-            <label for="jumlahInput" class="text-lg font-bold mr-2 block mb-3 ">Banyak Input</label>
+            <label for="jumlahInput" class="text-lg font-bold mr-2 block mb-1 ">Banyak Input</label>
             <div class="flex justify-center items-center">
                 <input id="jumlahInput" type="number"
                     class="input input-sm input-bordered text-center px-2 border border-black rounded-md text-sm mr-2 w-20"
@@ -136,8 +137,8 @@
         </div>
 
         <div class="w-fit col-span-2 hintInputVarRNG">
-            <h3 class="text-xl font-bold mr-2 mt-5 mb-1">Input Pembangkit Angka Acak</h3>
-            <div class=" border border-black p-2 rounded-md mb-5">
+            <h3 class="text-xl font-bold mr-2 mt-3 mb-3">Input Pembangkit Angka Acak</h3>
+            <div class=" border border-black p-2 rounded-md mb-5 p-3">
 
                 <div class="">
                     <h4 class="font-bold">Pilih Metode : </h4>
@@ -165,7 +166,7 @@
                             <label for="metodeMultiplicative"
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-transparent border border-black rounded-lg cursor-pointer peer-checked:bg-blue-500 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100">
                                 <div class="block">
-                                    <div class="w-full text-lg font-semibold">Multiplicative</div>
+                                    <div class="w-full text-lg font-semibold">MULTIPLICATIVE</div>
                                     <div class="w-full">Multiplicative Generator</div>
                                 </div>
                                 <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true"
@@ -261,12 +262,13 @@
                             value="100">
                     </div>
                     <button
-                        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2"
+                        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2 hintBuatSimulasi"
                         id="buatSimulasi">Buat Simulasi</button>
 
                     <!-- Loader  -->
                     <div id="loaderOverlay" class="loader-overlay">
                         <div class="loader"></div>
+                        <!-- <div class="loader-text">Load Grafik</div> -->
                     </div>
                     <!-- End Loader  -->
 
@@ -324,7 +326,7 @@
             // Hide loader
             loaderOverlay.style.display = "none";
             // Add code here to display your chart or perform other actions
-        }, 1000); // 2000 milliseconds = 2 seconds
+        }, 1500); // 2000 milliseconds = 2 seconds
     });
 </script>
 

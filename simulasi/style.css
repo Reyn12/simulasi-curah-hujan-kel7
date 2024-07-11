@@ -29,26 +29,16 @@ input[type=number] {
 }
 
 .loader {
-    width: 120px;
-    height: 22px;
-    border-radius: 20px;
-    color: #514b82;
-    border: 2px solid;
-    position: relative;
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid lightblue;
+    border-right-color: rgb(20, 137, 233);
+    animation: l2 1s infinite linear;
 }
 
-.loader::before {
-    content: "";
-    position: absolute;
-    margin: 2px;
-    inset: 0 100% 0 0;
-    border-radius: inherit;
-    background: currentColor;
-    animation: l6 2s infinite;
-}
-
-@keyframes l6 {
-    100% {
-        inset: 0
+@keyframes l2 {
+    to {
+        transform: rotate(1turn);
     }
 }
