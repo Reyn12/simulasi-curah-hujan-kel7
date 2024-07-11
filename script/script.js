@@ -44,7 +44,7 @@ const driverObj = driver({
       element: ".hintBanyakInput",
       popover: {
         title: "Masukkan Banyaknya Data Yang Akan Di input",
-        description: "Contoh: 50 Data, 20 Data, Maksimal 100 Data",
+        description: "Contoh: 50 Data, 20 Data, atau 100 Data",
         side: "bottom",
         align: "center",
       },
@@ -74,7 +74,7 @@ const driverObj = driver({
       popover: {
         title: "Masukkan Variabel RNG Yang dibutuhkan",
         description:
-          "Bisa pilih LCG atau Multiplicative sesuai keinginan, dan Masukkan Value nya",
+          "Bisa pilih metode LCG atau Multiplicative sesuai keinginan atau kebutuhan, dan Masukkan Value nya",
         side: "right",
         align: "start",
       },
@@ -84,7 +84,7 @@ const driverObj = driver({
       popover: {
         title: "Masukkan Banyaknya Simulasi",
         description:
-          "Contoh: 50 Simulasi, maka program akan menampilkan sebanyak 50 kali simulasi",
+          "Contoh: 50 Simulasi, maka simulasi akan dijalankan sebanyak 50 kali simulasi",
         side: "right",
         align: "start",
       },
@@ -94,7 +94,7 @@ const driverObj = driver({
       popover: {
         title: "Button Buat Simulasi",
         description:
-          "Klik untuk menampilkan hasil data simulasi dalam bentk Chart dan Tabel",
+          "Klik untuk menjalankan simulasi dan menampikan hasil data simulasi dalam bentuk Chart dan Tabel",
         side: "right",
         align: "start",
       },
