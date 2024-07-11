@@ -421,7 +421,7 @@ function buatSimulasiIntensitasCurahHujan() {
       nilaiSimulasiLH = intervalAngkaAcakLH[lastIntervalLH];
     }
 
-    let intensitasCurahHujan = nilaiSimulasiCH / nilaiSimulasiLH;
+    let intensitasCurahHujan = Math.round(nilaiSimulasiCH) / Math.round(nilaiSimulasiLH);
     let statusCuaca = getStatusCuaca(intensitasCurahHujan);
 
     dataHasilSimulasi.push({
@@ -445,7 +445,7 @@ function buatSimulasiIntensitasCurahHujan() {
                     <td>${Math.round(angkaAcakLH)}</td>
                     <td>${Math.round(nilaiSimulasiCH)}</td>
                     <td>${Math.round(nilaiSimulasiLH)}</td>
-                    <td>${Math.round(intensitasCurahHujan)}</td>
+                    <td>${intensitasCurahHujan.toFixed(2)}</td>
                     <td class='bg-[${
                       colors[statusCuaca]
                     }] ${textCol}'>${statusCuaca}</td>
@@ -551,15 +551,48 @@ function getIntervalAngkaAcak() {
   let sortedKeysCH = Object.keys(frekuensiCurahHujan).sort((a, b) => a - b);
   let intervalAngkaAcakCH = {};
 
-  let probKumLastCH = 0;
-  for (let i = 0; i < sortedKeysCH.length; i++) {
-    const curKey = sortedKeysCH[i];
+  if(Object.keys(frekuensiCurahHujan).length < 8){
+    let probKumLastCH = 0;
+    for (let i = 0; i < sortedKeysCH.length; i++) {
+      const curKey = sortedKeysCH[i];
+  
+      let probabilitas = frekuensiCurahHujan[curKey] / curahHujanInputs.length;
+      let probabilitasKumulatif = probabilitas + probKumLastCH;
+      probKumLastCH = probabilitasKumulatif;
+      let intervalAngkaAcakCHVal = probabilitasKumulatif * 100 - 1;
+      intervalAngkaAcakCH[intervalAngkaAcakCHVal] = curKey;
+    }
+  }else{
+    let rentang =
+      Object.keys(frekuensiCurahHujan).at(-1) -
+      Object.keys(frekuensiCurahHujan).at(0);
+    let banyakKelas = Math.round(1 + 3.3 * Math.log10(curahHujanInputs.length));
+    let panjangKelas = Math.round(rentang / banyakKelas);
+    let intervalFrekuensi = [];
+    let intervalAtasTerakhir = Object.keys(frekuensiCurahHujan).at(0) - 1;
+    for (let i = 0; i < banyakKelas; i++) {
+      let intervalAtas = intervalAtasTerakhir + panjangKelas;
+      intervalFrekuensi.push({ [intervalAtas]: 0 });
+      intervalAtasTerakhir = intervalAtas;
+    }
 
-    let probabilitas = frekuensiCurahHujan[curKey] / curahHujanInputs.length;
-    let probabilitasKumulatif = probabilitas + probKumLastCH;
-    probKumLastCH = probabilitasKumulatif;
-    let intervalAngkaAcakCHVal = probabilitasKumulatif * 100 - 1;
-    intervalAngkaAcakCH[intervalAngkaAcakCHVal] = curKey;
+    let probKumLast = 0;
+    let j = 0;
+    for (let i = 0; i < intervalFrekuensi.length; i++) {
+      let curKey = parseInt(Object.keys(intervalFrekuensi[i])[0]);
+      while (j <= parseInt(Object.keys(intervalFrekuensi[i])[0])) {
+        if (String(j) in frekuensiCurahHujan) {
+          intervalFrekuensi[i][curKey] += frekuensiCurahHujan[String(j)];
+        }
+        j += 1;
+      }
+      let nilaiTengah = (curKey + (curKey - panjangKelas + 1)) / 2;
+      let probabilitas = intervalFrekuensi[i][curKey] / curahHujanInputs.length;
+      let probKum = probKumLast + probabilitas;
+      probKumLast = probKum;
+      let intervalAngkaAcakCHVal = probKum * 100 - 1;
+      intervalAngkaAcakCH[intervalAngkaAcakCHVal] = nilaiTengah;
+    }
   }
 
   // LH = lama hujan
@@ -571,7 +604,7 @@ function getIntervalAngkaAcak() {
     for (let i = 0; i < sortedKeysLH.length; i++) {
       const curKey = sortedKeysLH[i];
 
-      let probabilitas = frekuensiLamaHujan[curKey] / curahHujanInputs.length;
+      let probabilitas = frekuensiLamaHujan[curKey] / lamaHujanInputs.length;
       let probKum = probabilitas + probKumLastLH;
       probKumLastLH = probKum;
       let intervalAngkaAcakLHVal = probKum * 100 - 1;
@@ -581,7 +614,7 @@ function getIntervalAngkaAcak() {
     let rentang =
       Object.keys(frekuensiLamaHujan).at(-1) -
       Object.keys(frekuensiLamaHujan).at(0);
-    let banyakKelas = Math.round(1 + 3.3 * Math.log10(curahHujanInputs.length));
+    let banyakKelas = Math.round(1 + 3.3 * Math.log10(lamaHujanInputs.length));
     let panjangKelas = Math.round(rentang / banyakKelas);
     let intervalFrekuensi = [];
     let intervalAtasTerakhir = Object.keys(frekuensiLamaHujan).at(0) - 1;
